@@ -9,6 +9,7 @@ const createCustomErrors = require('./middlewares/createCustomErrors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes');
 const { bruteforceAll } = require('./utils/bruteForce');
+const { MONGO_SERVER } = require('./utils/constants/MONGO_SERVER');
 
 require('dotenv').config();
 
@@ -43,10 +44,11 @@ app.use(errors());
 app.use(createCustomErrors);
 app.use(errorHandler);
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
+mongoose.connect(MONGO_SERVER)
 // eslint-disable-next-line no-console
   .then(() => console.log('Connected!'))
   .catch((e) => {
+    // eslint-disable-next-line no-console
     console.error(e);
     throw e;
   });

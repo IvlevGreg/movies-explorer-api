@@ -3,7 +3,10 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: 'airbnb-base',
+  extends: [
+    'airbnb-base',
+    'plugin:security/recommended',
+  ],
   overrides: [
     {
       env: {
@@ -22,5 +25,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'consistent-return': 0,
+    'no-useless-escape': 2,
+    'no-console': 'error',
+    'max-len': ['warn', { code: 100 }],
   },
 };

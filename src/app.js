@@ -22,7 +22,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '50kb' })); // body-parser defaults to a body size limit of 100kb
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

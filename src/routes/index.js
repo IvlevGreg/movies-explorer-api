@@ -1,13 +1,13 @@
 const router = require('express').Router();
 
-const auth = require('../middlewares/auth');
+const protectRoutesForNotAuth = require('../middlewares/protectRoutesForNotAuth');
 
 const usersRoutes = require('./users');
 const moviesRoutes = require('./movies');
 const authRoutes = require('./auth');
 const errorsRoutes = require('./errorsRoutes');
 
-router.use('/crash-test', auth, () => {
+router.use('/crash-test', protectRoutesForNotAuth, () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
@@ -15,9 +15,9 @@ router.use('/crash-test', auth, () => {
 
 router.use('/', authRoutes);
 
-router.use('/users', auth, usersRoutes);
-router.use('/movies', auth, moviesRoutes);
+router.use('/users', protectRoutesForNotAuth, usersRoutes);
+router.use('/movies', protectRoutesForNotAuth, moviesRoutes);
 
-router.use('*', auth, errorsRoutes);
+router.use('*', protectRoutesForNotAuth, errorsRoutes);
 
 module.exports = router;

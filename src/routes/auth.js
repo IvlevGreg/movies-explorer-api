@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { bruteforceAuth } = require('../utils/bruteForce');
+const protectRoutesForNotAuth = require('../middlewares/protectRoutesForNotAuth');
 
 const {
   createUser,
@@ -15,7 +16,6 @@ const validateEmailAndPasswordField = {
 
 const usersFields = {
   name: Joi.string().min(2).max(30),
-  // avatar: Joi.string().pattern(LINK_PATTERN),
 };
 
 const signinValidate = celebrate({
@@ -32,7 +32,7 @@ const signupValidate = celebrate({
 });
 
 router.post('/signin', bruteforceAuth.prevent, signinValidate, login);
-router.post('/sign-out', logout);
+router.post('/sign-out', protectRoutesForNotAuth, logout);
 router.post('/signup', bruteforceAuth.prevent, signupValidate, createUser);
 
 module.exports = router;

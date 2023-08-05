@@ -1,0 +1,9 @@
+const { USER_DATA } = require('./USER_DATA');
+const { ALL_ROUTES, PROTECTED_ROUTES, NOT_PROTECTED_ROUTES } = require('./ROUTES');
+
+module.exports = {
+  USER_DATA,
+  ALL_ROUTES,
+  PROTECTED_ROUTES,
+  NOT_PROTECTED_ROUTES,
+};

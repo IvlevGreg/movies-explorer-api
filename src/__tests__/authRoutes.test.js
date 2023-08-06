@@ -1,8 +1,11 @@
+const jwt = require('jsonwebtoken');
 const { request } = require('./endpoint');
 const {
   messageDefinedInBody, validationDefinedInBody, loginUser, signupUser, connectToMongoDBBeforeEach, connectToMongoDBBeforeAll,
-} = require('./utils');
-const { USER_DATA } = require('./constants');
+} = require('./fixtures/utils');
+const { USER_DATA } = require('./fixtures/constants');
+const User = require('../models/user');
+const { JWT_TOKEN } = require('../utils/constants/JWT_TOKEN');
 
 const USER_DATA_WITH_INCORRECT_EMAIL = {
   email: 'test@example',
@@ -111,6 +114,19 @@ describe('WHEN "POST /signup" called', () => {
       });
     }));
 
+  it('MUST return 201 and contain userData in DB', () => request
+    .post('/signup')
+    .send(USER_DATA)
+
+    .then((res) => {
+      expect(res.status).toBe(201);
+      return User.findOne({ email: USER_DATA.email })
+        .then((user) => {
+          expect(user).toBeDefined();
+          expect(user.email).toBe(USER_DATA.email);
+        });
+    }));
+
   it('MUST return 201 and not return password', () => request
     .post('/signup')
     .send(USER_DATA)
@@ -140,32 +156,57 @@ describe('WHEN "POST /signup" called AND user already exist', () => {
     }));
 });
 
-describe('WHEN "POST /sign-out" called ', () => {
+describe('WHEN "POST /signin" called ', () => {
   connectToMongoDBBeforeAll();
   signupUser();
-  loginUser();
 
-  it('MUST successfully log-out, return 200 and message', () => request
-    .post('/sign-out')
+  it('MUST return 200 and not return password', () => request
+    .post('/signin')
+    .send(USER_DATA)
 
     .then((res) => {
       expect(res.status).toBe(200);
-      messageDefinedInBody(res);
+      expect(Object.hasOwn(res.body, 'password')).toBeFalsy();
+      expect(res.headers['set-cookie'][0]).toContain('jwt=');
+      expect(res.body).toEqual(expect.not.objectContaining({
+        data: {
+          password: expect.any(String),
+        },
+      }));
     }));
 
-  it('MUST return 401 and error message on auth protected route', () => request
-    .post('/')
+  it('MUST return 401 and error message on not registered user', () => request
+    .post('/signin')
+    .send({ ...USER_DATA, email: '123@mail.ru' })
 
     .then((res) => {
       expect(res.status).toBe(401);
       messageDefinedInBody(res);
     }));
+});
 
-  it('MUST return 401 and error message on second call POST /sign-out', () => request
-    .post('/')
+describe('WHEN "POST /sign-out" called ', () => {
+  connectToMongoDBBeforeAll();
+  signupUser();
+
+  it('MUST successfully log-out, return 200 and message', () => request
+    .post('/sign-out')
+    .set('Cookie', [`jwt=${jwt.sign({ _id: '123' }, JWT_TOKEN, { expiresIn: '7d' })}`])
 
     .then((res) => {
-      expect(res.status).toBe(401);
+      expect(res.status).toBe(200);
+      expect(res.headers['set-cookie'][0]).toContain('jwt=; Max-Age=-1');
       messageDefinedInBody(res);
     }));
+
+  it('MUST return 401 and message if "POST /sign-out" called twice', () => request
+    .post('/sign-out')
+    .set('Cookie', [`jwt=${jwt.sign({ _id: '123' }, JWT_TOKEN, { expiresIn: '7d' })}`])
+
+    .then(() => request
+      .post('/sign-out')
+      .then((res) => {
+        expect(res.status).toBe(401);
+        messageDefinedInBody(res);
+      })));
 });

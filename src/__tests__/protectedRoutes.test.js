@@ -1,6 +1,6 @@
 const { request } = require('./endpoint');
-const { PROTECTED_ROUTES } = require('./constants/ROUTES');
-const { messageDefinedInBody } = require('./utils');
+const { PROTECTED_ROUTES } = require('./fixtures/constants/ROUTES');
+const { messageDefinedInBody } = require('./fixtures/utils');
 
 describe.each(PROTECTED_ROUTES)('WHEN protected routes called', ({ route, method }) => {
   it(

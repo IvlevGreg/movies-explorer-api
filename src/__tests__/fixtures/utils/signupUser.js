@@ -1,14 +1,14 @@
-const { request } = require('../endpoint');
+const { request } = require('../../endpoint');
 const { USER_DATA } = require('../constants');
 
-const loginUser = () => {
+const signupUser = () => {
   beforeAll(async () => {
     await request
-      .post('/signin')
+      .post('/signup')
       .send(USER_DATA);
   });
 };
 
 module.exports = {
-  loginUser,
+  signupUser,
 };

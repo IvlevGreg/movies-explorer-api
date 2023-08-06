@@ -1,11 +1,11 @@
-const router = require('express').Router();
+import express from 'express';
+import protectRoutesForNotAuth from '../middlewares/protectRoutesForNotAuth';
+import usersRoutes from './users';
+import moviesRoutes from './movies';
+import authRoutes from './auth';
+import errorsRoutes from './errorsRoutes';
 
-const protectRoutesForNotAuth = require('../middlewares/protectRoutesForNotAuth');
-
-const usersRoutes = require('./users');
-const moviesRoutes = require('./movies');
-const authRoutes = require('./auth');
-const errorsRoutes = require('./errorsRoutes');
+const router = express.Router();
 
 router.use('/crash-test', protectRoutesForNotAuth, () => {
   setTimeout(() => {
@@ -20,4 +20,4 @@ router.use('/movies', protectRoutesForNotAuth, moviesRoutes);
 
 router.use('*', protectRoutesForNotAuth, errorsRoutes);
 
-module.exports = router;
+export default router;

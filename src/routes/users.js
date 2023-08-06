@@ -1,10 +1,8 @@
-const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
+import { celebrate, Joi } from 'celebrate';
+import express from 'express';
+import { updateUserById, getUserMe } from '../controllers/users';
 
-const {
-  updateUserById,
-  getUserMe,
-} = require('../controllers/users');
+const router = express.Router();
 
 const validatePatchMe = celebrate({
   body: Joi.object().keys({
@@ -15,4 +13,4 @@ const validatePatchMe = celebrate({
 router.get('/me', getUserMe);
 router.patch('/me', validatePatchMe, updateUserById);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const PROTECTED_ROUTES = [
+export const PROTECTED_ROUTES = [
   { route: '/', method: 'get' },
   { route: '/users/me', method: 'get' },
   { route: '/users/me', method: 'patch' },
@@ -9,18 +9,12 @@ const PROTECTED_ROUTES = [
   { route: '/sign-out', method: 'post' },
 ];
 
-const NOT_PROTECTED_ROUTES = [
+export const NOT_PROTECTED_ROUTES = [
   { route: '/signin', method: 'post' },
   { route: '/signup', method: 'post' },
 ];
 
-const ALL_ROUTES = [
+export const ALL_ROUTES = [
   ...PROTECTED_ROUTES,
   ...NOT_PROTECTED_ROUTES,
 ];
-
-module.exports = {
-  PROTECTED_ROUTES,
-  NOT_PROTECTED_ROUTES,
-  ALL_ROUTES,
-};

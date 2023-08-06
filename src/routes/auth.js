@@ -1,13 +1,10 @@
-const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const { bruteforceAuth } = require('../utils/bruteForce');
-const protectRoutesForNotAuth = require('../middlewares/protectRoutesForNotAuth');
+import { celebrate, Joi } from 'celebrate';
+import express from 'express';
+import { bruteforceAuth } from '../utils/bruteForce';
+import protectRoutesForNotAuth from '../middlewares/protectRoutesForNotAuth';
+import { createUser, login, logout } from '../controllers/auth';
 
-const {
-  createUser,
-  login,
-  logout,
-} = require('../controllers/auth');
+const router = express.Router();
 
 const validateEmailAndPasswordField = {
   email: Joi.string().required().email(),
@@ -35,4 +32,4 @@ router.post('/signin', bruteforceAuth.prevent, signinValidate, login);
 router.post('/sign-out', protectRoutesForNotAuth, logout);
 router.post('/signup', bruteforceAuth.prevent, signupValidate, createUser);
 
-module.exports = router;
+export default router;

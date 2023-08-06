@@ -1,6 +1,6 @@
-const { ValidationError, getValidationErrorText } = require('../utils/Errors');
+import { ValidationError, getValidationErrorText } from '../utils/Errors';
 
-module.exports = (err, _, __, next) => {
+export default (err, _, __, next) => {
   const { statusCode, name } = err;
 
   // маппинг ошибок express-brute в единый формат

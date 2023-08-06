@@ -1,5 +1,5 @@
-const plural = require('plural-ru');
-const { TooManyRequestError } = require('../utils/Errors');
+import plural from 'plural-ru';
+import { TooManyRequestError } from '../utils/Errors';
 
 const failBruteCallback = (_, __, next, nextValidRequestDate) => {
   const minutes = Math.floor((new Date(nextValidRequestDate) - Date.now()) / (1000 * 60));
@@ -9,4 +9,4 @@ const failBruteCallback = (_, __, next, nextValidRequestDate) => {
   next(new TooManyRequestError(text));
 };
 
-module.exports = failBruteCallback;
+export default failBruteCallback;

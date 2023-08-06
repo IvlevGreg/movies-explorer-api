@@ -1,5 +1,3 @@
-const messageDefinedInBody = async (response) => {
+export const messageDefinedInBody = async (response) => {
   expect(response.body.message).toBeDefined();
 };
-
-module.exports = { messageDefinedInBody };

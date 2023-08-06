@@ -1,7 +1,7 @@
-const BruteForceSchema = require('express-brute-mongoose/dist/schema');
-const mongoose = require('mongoose');
+import BruteForceSchema from 'express-brute-mongoose/dist/schema';
+import mongoose from 'mongoose';
 
-module.exports = mongoose.model(
+export default mongoose.model(
   'bruteforce',
   new mongoose.Schema(BruteForceSchema),
 );

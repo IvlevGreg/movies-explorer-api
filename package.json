@@ -2,13 +2,14 @@
   "name": "movies-explorer-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "type": "module",
+  "main": "src/server.js",
   "scripts": {
-    "dev": " nodemon src/server.js",
-    "start": "node src/server.js",
+    "dev": "nodemon --es-module-specifier-resolution=node src/server.js",
+    "start": "node --es-module-specifier-resolution=node  src/server.js",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "start:mongodb": "brew services start mongodb-community@4.4"
   },
   "keywords": [],

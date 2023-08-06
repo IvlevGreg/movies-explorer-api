@@ -1,19 +1,8 @@
-const { AuthError } = require('./AuthError');
-const { NotFoundError } = require('./NotFoundError');
-const { ValidationError } = require('./ValidationError');
-const { Default400Error } = require('./Default400Error');
-const { UserExist } = require('./UserExist');
-const { ForbiddenError } = require('./ForbiddenError');
-const { getValidationErrorText } = require('./getValidationErrorText');
-const { TooManyRequestError } = require('./TooManyRequestError');
-
-module.exports = {
-  AuthError,
-  NotFoundError,
-  ValidationError,
-  Default400Error,
-  UserExist,
-  ForbiddenError,
-  getValidationErrorText,
-  TooManyRequestError,
-};
+export { AuthError } from './AuthError';
+export { NotFoundError } from './NotFoundError';
+export { ValidationError } from './ValidationError';
+export { Default400Error } from './Default400Error';
+export { UserExist } from './UserExist';
+export { ForbiddenError } from './ForbiddenError';
+export { getValidationErrorText } from './getValidationErrorText';
+export { TooManyRequestError } from './TooManyRequestError';

@@ -1,7 +1,7 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
 
-const connectToMongoDBBeforeAll = () => {
+export const connectToMongoDBBeforeAll = () => {
   beforeAll(async () => {
     const mongoServer = await MongoMemoryServer.create();
 
@@ -14,7 +14,7 @@ const connectToMongoDBBeforeAll = () => {
   });
 };
 
-const connectToMongoDBBeforeEach = () => {
+export const connectToMongoDBBeforeEach = () => {
   beforeEach(async () => {
     const mongoServer = await MongoMemoryServer.create();
 
@@ -25,9 +25,4 @@ const connectToMongoDBBeforeEach = () => {
     await mongoose.disconnect();
     await mongoose.connection.close();
   });
-};
-
-module.exports = {
-  connectToMongoDBBeforeAll,
-  connectToMongoDBBeforeEach,
 };

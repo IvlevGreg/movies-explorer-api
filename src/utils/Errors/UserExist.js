@@ -1,8 +1,6 @@
-class UserExist extends Error {
+export class UserExist extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 409;
   }
 }
-
-module.exports = { UserExist };

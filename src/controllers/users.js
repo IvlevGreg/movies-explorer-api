@@ -1,8 +1,5 @@
-const users = require('../models/user');
-
-const {
-  NotFoundError,
-} = require('../utils/Errors');
+import users from '../models/user';
+import { NotFoundError } from '../utils/Errors';
 
 const NOT_FOUND_USER_ERROR_TEXT = 'Пользователь не найден';
 
@@ -19,13 +16,13 @@ const findUserById = (userId, res, next) => users.findById(userId)
 
   .catch(() => next(new NotFoundError(NOT_FOUND_USER_ERROR_TEXT)));
 
-const getUserMe = (req, res, next) => {
+export const getUserMe = (req, res, next) => {
   const { _id } = req.user;
 
   return findUserById(_id, res, next);
 };
 
-const updateUserById = (req, res, next) => {
+export const updateUserById = (req, res, next) => {
   const { name } = req.body;
   const userId = req.user._id;
 
@@ -36,9 +33,4 @@ const updateUserById = (req, res, next) => {
   )
     .then((usersData) => sendUsersData(usersData, res))
     .catch(next);
-};
-
-module.exports = {
-  updateUserById,
-  getUserMe,
 };

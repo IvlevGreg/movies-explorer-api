@@ -1,11 +1,17 @@
-const jwt = require('jsonwebtoken');
-const { request } = require('./endpoint');
-const {
-  messageDefinedInBody, validationDefinedInBody, loginUser, signupUser, connectToMongoDBBeforeEach, connectToMongoDBBeforeAll,
-} = require('./fixtures/utils');
-const { USER_DATA } = require('./fixtures/constants');
-const User = require('../models/user');
-const { JWT_TOKEN } = require('../utils/constants/JWT_TOKEN');
+import jwt from 'jsonwebtoken';
+import { request } from './endpoint';
+
+import {
+  connectToMongoDBBeforeAll,
+  connectToMongoDBBeforeEach,
+  messageDefinedInBody,
+  signupUser,
+  validationDefinedInBody,
+} from './fixtures/utils';
+
+import { USER_DATA } from './fixtures/constants';
+import User from '../models/user';
+import { JWT_TOKEN } from '../utils/constants/JWT_TOKEN';
 
 const USER_DATA_WITH_INCORRECT_EMAIL = {
   email: 'test@example',

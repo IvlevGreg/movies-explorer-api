@@ -1,13 +1,9 @@
-const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
+import { celebrate, Joi } from 'celebrate';
+import express from 'express';
+import { getMovies, postMovie, getMovieById } from '../controllers/movies';
+import { LINK_PATTERN } from '../utils/constants/LINK_PATTERN';
 
-const {
-  getMovies,
-  postMovie,
-  getMovieById,
-} = require('../controllers/movies');
-
-const { LINK_PATTERN } = require('../utils/constants/LINK_PATTERN');
+const router = express.Router();
 
 const validateMovieId = celebrate({
   params: Joi.object().keys({
@@ -36,4 +32,4 @@ router.get('/', getMovies);
 router.post('/', createMovieValidation, postMovie);
 router.delete('/:movieId', validateMovieId, getMovieById);
 
-module.exports = router;
+export default router;

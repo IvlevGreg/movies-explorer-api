@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const app = require('./app');
-const { MONGO_SERVER } = require('./utils/constants/MONGO_SERVER');
+import mongoose from 'mongoose';
+import app from './app';
+import { MONGO_SERVER } from './utils/constants/MONGO_SERVER';
 
 const port = process.env.PORT || 3000;
 

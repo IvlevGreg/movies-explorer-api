@@ -31,6 +31,7 @@ module.exports = {
     'consistent-return': 0,
     'no-useless-escape': 2,
     'no-console': 'error',
+    'import/prefer-default-export': 0,
     'max-len': ['warn', { code: 100 }],
 
     // jest

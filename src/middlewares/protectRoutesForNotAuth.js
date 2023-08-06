@@ -1,11 +1,8 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import { AuthError } from '../utils/Errors';
+import { JWT_TOKEN } from '../utils/constants/JWT_TOKEN';
 
-const {
-  AuthError,
-} = require('../utils/Errors');
-const { JWT_TOKEN } = require('../utils/constants/JWT_TOKEN');
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const tokenCookie = req.cookies.jwt;
   const { authorization } = req.headers;
 

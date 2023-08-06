@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const {
-  handle404Errors,
-} = require('../controllers/handle404Errors');
+import express from 'express';
+import { handle404Errors } from '../controllers/handle404Errors';
+
+const router = express.Router();
 
 router.all('*', handle404Errors);
 
-module.exports = router;
+export default router;

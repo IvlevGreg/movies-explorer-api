@@ -1,8 +1,6 @@
-const { LINK_PATTERN } = require('../../utils/constants/LINK_PATTERN');
+import { LINK_PATTERN } from '../../utils/constants/LINK_PATTERN';
 
-const validateLink = {
+export const validateLink = {
   validator: (str) => LINK_PATTERN.test(str),
   message: 'Некореектный url',
 };
-
-module.exports = { validateLink };

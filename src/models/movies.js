@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { validateLink } = require('./utils/validateLink');
+import mongoose from 'mongoose';
+import { validateLink } from './utils/validateLink';
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -56,4 +56,4 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('movie', movieSchema);
+export default mongoose.model('movie', movieSchema);

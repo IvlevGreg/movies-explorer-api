@@ -1,15 +1,16 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const { errors } = require('celebrate');
-const cors = require('cors');
-const helmet = require('helmet');
-const errorHandler = require('./middlewares/errorHandler');
-const createCustomErrors = require('./middlewares/createCustomErrors');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const routes = require('./routes');
-const { bruteforceAll } = require('./utils/bruteForce');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import { errors } from 'celebrate';
+import cors from 'cors';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import errorHandler from './middlewares/errorHandler';
+import createCustomErrors from './middlewares/createCustomErrors';
+import { requestLogger, errorLogger } from './middlewares/logger';
+import routes from './routes';
+import { bruteforceAll } from './utils/bruteForce';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 
@@ -35,4 +36,4 @@ app.use(errors());
 app.use(createCustomErrors);
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

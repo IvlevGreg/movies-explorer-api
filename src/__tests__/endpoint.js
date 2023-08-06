@@ -1,7 +1,6 @@
 // endpoint.test.js
-const supertest = require('supertest');
-const app = require('../app');
+import supertest from 'supertest';
 
-const request = supertest(app);
+import app from '../app';
 
-module.exports = { request };
+export const request = supertest(app);

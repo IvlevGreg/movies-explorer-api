@@ -1,5 +1,3 @@
-const { IS_PRODUCTION } = require('./IS_PRODUCTION');
+import { IS_PRODUCTION } from './IS_PRODUCTION';
 
-const JWT_TOKEN = IS_PRODUCTION ? process.env.JWT_SECRET : 'super-strong-secret';
-
-module.exports = { JWT_TOKEN };
+export const JWT_TOKEN = IS_PRODUCTION ? process.env.JWT_SECRET : 'super-strong-secret';

@@ -1,5 +1,3 @@
-const validationDefinedInBody = (response) => {
+export const validationDefinedInBody = (response) => {
   expect(response.body.validation).toBeDefined();
 };
-
-module.exports = { validationDefinedInBody };

@@ -1,6 +1,6 @@
 # movies-explorer-api
 
-## деплой: http://api.greg.nomoreparties.co/
+## деплой: https://api.greg.nomoreparties.co/
 
 ## Стек:
 - ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)

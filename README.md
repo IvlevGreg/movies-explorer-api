@@ -1,6 +1,6 @@
 # movies-explorer-api
 
-## деплой:
+## деплой: http://api.greg.nomoreparties.co/
 
 ## Стек:
 - ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
@@ -65,3 +65,24 @@ POST /signup
 # проверяет переданные в теле почту и пароль и возвращает JWT
 POST /signin 
 ```
+
+## Get started:
+
+In the project directory, you can run:
+
+### `npm i`
+
+Installs command a package and any packages that it depends on.
+
+### `npm start`
+
+Runs the app in the development mode.
+
+### `npm run dev`
+
+The server will reload if you make edits.
+You will also see any lint errors in the console.
+
+### `brew services start mongodb-community@4.4` 
+
+start mongoDB (works for Mac & brew)

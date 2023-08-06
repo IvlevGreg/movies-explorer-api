@@ -10,7 +10,6 @@
 - ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![supertest](https://img.shields.io/badge/-supertest-000000?style=for-the-badge&logo=tistory&logoColor=058a5e)
 ![mongodb-memory-server](https://img.shields.io/badge/mongodb_memory_server-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![superagent](https://img.shields.io/badge/superagent-000000?style=for-the-badge&logo=superagent&logoColor=white)
 
 - ![helmet](https://img.shields.io/badge/helmet-0F1689?style=for-the-badge&logo=helm&logoColor=058a5e)
 ![bcrypt](https://img.shields.io/badge/bcrypt-003A70?style=for-the-badge&logo=letsencrypt&logoColor=058a5e)

@@ -2,13 +2,16 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import users from '../models/user';
 
-import { UserExist, AuthError } from '../utils/Errors';
+import { Conflict409Error, AuthError } from '../utils/Errors';
 import { JWT_TOKEN } from '../utils/constants/JWT_TOKEN';
-
-const USER_409_ERROR_TEXT = 'Пользователь с таким email уже существует';
+import {
+  AUTH_INCORRECT_EMAIL_OR_PASSWORD_401_ERROR,
+  USER_409_ERROR_TEXT,
+} from '../utils/constants/ERROR_TEXTS';
+import { SUCCESS_DATA_DEFAULT } from '../utils/constants/RESULT_TEXTS';
 
 const rejectPromiseWrongEmailOrPassword = () => Promise.reject(
-  new AuthError('Неверное сочетание почты и пароля'),
+  new AuthError(AUTH_INCORRECT_EMAIL_OR_PASSWORD_401_ERROR),
 );
 
 export const login = (req, res, next) => {
@@ -27,7 +30,7 @@ export const login = (req, res, next) => {
           sameSite: true,
         });
 
-      res.send({ message: 'Всё верно!' });
+      res.send({ message: SUCCESS_DATA_DEFAULT });
     })
     .catch(next);
 };
@@ -68,7 +71,7 @@ export const createUser = (req, res, next) => {
       })
       .catch((err) => {
         if (err.code === 11000) {
-          next(new UserExist(USER_409_ERROR_TEXT));
+          next(new Conflict409Error(USER_409_ERROR_TEXT));
         } else {
           next(err);
         }

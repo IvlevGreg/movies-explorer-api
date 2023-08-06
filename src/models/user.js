@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import { INCORRECT_EMAIL_VALIDATION_ERROR } from '../utils/constants/ERROR_TEXTS';
 
 const userSchema = new mongoose.Schema({
 
@@ -11,7 +12,7 @@ const userSchema = new mongoose.Schema({
     dropDups: true,
     validate: {
       validator: validator.isEmail,
-      message: 'Некорректный формат почты',
+      message: INCORRECT_EMAIL_VALIDATION_ERROR,
     },
   },
   name: {

@@ -1,6 +1,9 @@
 import users from '../models/user';
 import { Conflict409Error, NotFoundError } from '../utils/Errors';
-import { CONFLICT_409_ERROR_EMAIL_NAME, NOT_FOUND_USER_ERROR_TEXT } from '../utils/constants/ErrorTexts';
+import {
+  CONFLICT_409_ERROR_EMAIL_NAME,
+  NOT_FOUND_USER_ERROR_TEXT,
+} from '../utils/constants/ERROR_TEXTS';
 
 const sendUsersData = (usersData, res) => {
   if (usersData) {

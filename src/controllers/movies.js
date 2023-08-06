@@ -1,8 +1,11 @@
 import movies from '../models/movies';
 
 import { Default400Error, NotFoundError, ForbiddenError } from '../utils/Errors';
-
-const NOT_FOUND_MOVIE_ERROR_TEXT = 'Фильм не найден';
+import {
+  DEFAULT_400_DELETE_MOVIE_ERROR,
+  FORBIDDEN_DELETE_MOVIE_ERROR,
+  NOT_FOUND_MOVIE_ERROR_TEXT,
+} from '../utils/constants/ERROR_TEXTS';
 
 export const getMovies = (req, res, next) => {
   movies.find({})
@@ -19,7 +22,7 @@ export const getMovieById = (req, res, next) => {
       const { _id } = req.user;
 
       if (_id !== moviesData.owner.toHexString()) {
-        next(new ForbiddenError('Вы пытаетесь удалить фильм другого пользователя'));
+        next(new ForbiddenError(FORBIDDEN_DELETE_MOVIE_ERROR));
         return;
       }
 
@@ -29,7 +32,7 @@ export const getMovieById = (req, res, next) => {
     })
     .catch((err) => {
       if (err === 'CastError') {
-        next(new Default400Error('Ошибка удаления фильма'));
+        next(new Default400Error(DEFAULT_400_DELETE_MOVIE_ERROR));
         return;
       }
       next(err);

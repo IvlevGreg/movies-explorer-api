@@ -4,12 +4,13 @@ import usersRoutes from './users';
 import moviesRoutes from './movies';
 import authRoutes from './auth';
 import errorsRoutes from './errorsRoutes';
+import { SERVER_CRASH_TEST_ERROR } from '../utils/constants/ERROR_TEXTS';
 
 const router = express.Router();
 
 router.use('/crash-test', protectRoutesForNotAuth, () => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error(SERVER_CRASH_TEST_ERROR);
   }, 0);
 });
 

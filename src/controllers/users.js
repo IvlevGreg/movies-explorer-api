@@ -4,6 +4,7 @@ import {
   CONFLICT_409_ERROR_EMAIL_NAME,
   NOT_FOUND_USER_ERROR_TEXT,
 } from '../utils/constants/ERROR_TEXTS';
+import { ERROR_11000 } from '../utils/constants/ERROR_CODE';
 
 const sendUsersData = (usersData, res) => {
   if (usersData) {
@@ -35,7 +36,7 @@ export const updateUserById = (req, res, next) => {
   )
     .then((usersData) => sendUsersData(usersData, res))
     .catch((err) => {
-      if (err.code === 11000) {
+      if (err.code === ERROR_11000) {
         next(new Conflict409Error(CONFLICT_409_ERROR_EMAIL_NAME));
       } else {
         next(err);

@@ -6,6 +6,7 @@ import {
   FORBIDDEN_DELETE_MOVIE_ERROR,
   NOT_FOUND_MOVIE_ERROR_TEXT,
 } from '../utils/constants/ERROR_TEXTS';
+import { ERROR_CAST_ERROR } from '../utils/constants/ERROR_CODE';
 
 export const getMovies = (req, res, next) => {
   const { _id } = req.user;
@@ -33,7 +34,7 @@ export const getMovieById = (req, res, next) => {
         .catch(next);
     })
     .catch((err) => {
-      if (err === 'CastError') {
+      if (err === ERROR_CAST_ERROR) {
         next(new Default400Error(DEFAULT_400_DELETE_MOVIE_ERROR));
         return;
       }

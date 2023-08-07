@@ -9,6 +9,8 @@ import {
   USER_409_ERROR_TEXT,
 } from '../utils/constants/ERROR_TEXTS';
 import { SUCCESS_DATA_DEFAULT } from '../utils/constants/RESULT_TEXTS';
+import { STATUS_201 } from '../utils/constants/STATUS_CODE';
+import { ERROR_11000 } from '../utils/constants/ERROR_CODE';
 
 const rejectPromiseWrongEmailOrPassword = () => Promise.reject(
   new AuthError(AUTH_INCORRECT_EMAIL_OR_PASSWORD_401_ERROR),
@@ -61,7 +63,7 @@ export const createUser = (req, res, next) => {
           _id,
         } = user;
 
-        res.status(201).send({
+        res.status(STATUS_201).send({
           data: {
             name: nameData,
             email: emailData,
@@ -70,7 +72,7 @@ export const createUser = (req, res, next) => {
         });
       })
       .catch((err) => {
-        if (err.code === 11000) {
+        if (err.code === ERROR_11000) {
           next(new Conflict409Error(USER_409_ERROR_TEXT));
         } else {
           next(err);

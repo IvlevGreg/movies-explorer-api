@@ -8,7 +8,9 @@ import {
 } from '../utils/constants/ERROR_TEXTS';
 
 export const getMovies = (req, res, next) => {
-  movies.find({})
+  const { _id } = req.user;
+
+  movies.find({ owner: _id })
     .then((moviesData) => res.send(moviesData))
     .catch(next);
 };

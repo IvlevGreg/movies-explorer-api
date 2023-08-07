@@ -1,4 +1,4 @@
-export const CONFLICT_409_ERROR_EMAIL_NAME = 'Введенное имя или email сейчас используются';
+export const CONFLICT_409_ERROR_EMAIL_NAME = 'Введенный email сейчас используется';
 
 export const NOT_FOUND_USER_ERROR_TEXT = 'Пользователь не найден';
 

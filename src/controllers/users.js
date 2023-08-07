@@ -31,17 +31,14 @@ export const updateUserById = (req, res, next) => {
   users.findByIdAndUpdate(
     userId,
     { name, email },
-    { returnDocument: 'after', runValidators: true },
+    { new: true, runValidators: true },
   )
-    .then((usersData) => {
-      if (usersData) {
-        if (name === usersData.name || email === usersData.email) {
-          throw new Conflict409Error(CONFLICT_409_ERROR_EMAIL_NAME);
-        }
-        res.send(usersData);
-        return;
+    .then((usersData) => sendUsersData(usersData, res))
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new Conflict409Error(CONFLICT_409_ERROR_EMAIL_NAME));
+      } else {
+        next(err);
       }
-      throw new NotFoundError(NOT_FOUND_USER_ERROR_TEXT);
-    })
-    .catch(next);
+    });
 };

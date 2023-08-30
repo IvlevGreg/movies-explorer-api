@@ -19,17 +19,17 @@ export const getMovies = (req, res, next) => {
 export const getMovieById = (req, res, next) => {
   const { movieId } = req.params;
 
-  movies.findById(movieId)
+  movies.findOne({ movieId })
     .orFail(new NotFoundError(NOT_FOUND_MOVIE_ERROR_TEXT))
     .then((moviesData) => {
-      const { _id } = req.user;
+      const { _id: userId } = req.user;
 
-      if (_id !== moviesData.owner.toHexString()) {
+      if (userId !== moviesData.owner.toHexString()) {
         next(new ForbiddenError(FORBIDDEN_DELETE_MOVIE_ERROR));
         return;
       }
 
-      movies.deleteOne({ _id: movieId })
+      movies.deleteOne({ _id: moviesData._id })
         .then(() => res.send({ data: moviesData }))
         .catch(next);
     })

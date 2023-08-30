@@ -2,10 +2,11 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import users from '../models/user';
 
-import { Conflict409Error, AuthError } from '../utils/Errors';
+import { AuthError, Conflict409Error, NotFoundError } from '../utils/Errors';
 import { JWT_TOKEN } from '../utils/constants/JWT_TOKEN';
 import {
   AUTH_INCORRECT_EMAIL_OR_PASSWORD_401_ERROR,
+  NOT_FOUND_USER_ERROR_TEXT,
   USER_409_ERROR_TEXT,
 } from '../utils/constants/ERROR_TEXTS';
 import { SUCCESS_DATA_DEFAULT } from '../utils/constants/RESULT_TEXTS';
@@ -20,20 +21,26 @@ export const login = (req, res, next) => {
   const { password, email } = req.body;
 
   users.findOne({ email }).select('+password')
-    .then((userData) => (userData && bcrypt.compare(password, userData.password)
-      ? userData : rejectPromiseWrongEmailOrPassword()))
-    .then((userData) => {
-      const token = jwt.sign({ _id: userData._id }, JWT_TOKEN, { expiresIn: '7d' });
+    .orFail(new NotFoundError(NOT_FOUND_USER_ERROR_TEXT))
+    .then((userData) => bcrypt.compare(
+      password,
+      userData.password,
+    ).then((isMatch) => {
+      if (isMatch) {
+        const token = jwt.sign({ _id: userData._id }, JWT_TOKEN, { expiresIn: '7d' });
 
-      res
-        .cookie('jwt', token, {
-          maxAge: 3600000,
-          httpOnly: true,
-          sameSite: true,
-        });
+        res
+          .cookie('jwt', token, {
+            maxAge: 3600000,
+            httpOnly: true,
+            sameSite: true,
+          });
 
-      res.send({ message: SUCCESS_DATA_DEFAULT });
-    })
+        res.send({ message: SUCCESS_DATA_DEFAULT });
+      } else {
+        return rejectPromiseWrongEmailOrPassword();
+      }
+    }))
     .catch(next);
 };
 

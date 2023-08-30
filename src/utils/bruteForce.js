@@ -13,7 +13,7 @@ if (IS_PRODUCTION) {
 }
 
 export const bruteforceAll = new ExpressBrute(bruteUsersStore, {
-  freeRetries: 100,
+  freeRetries: IS_PRODUCTION ? 100 : 1000,
   minWait: 5 * 60 * 1000, // 5 minutes
   maxWait: 60 * 60 * 1000, // 1 hour,
   failCallback: failBruteCallback,

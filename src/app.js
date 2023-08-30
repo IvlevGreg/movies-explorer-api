@@ -16,7 +16,7 @@ const app = express();
 
 app.use(cors({
   origin: ['http://localhost:3000',
-    'https://blogogram.nomoreparties.sbs'],
+    'http://greg.nomoredomainsicu.ru'],
   credentials: true,
 }));
 

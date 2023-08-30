@@ -16,7 +16,8 @@ const app = express();
 
 app.use(cors({
   origin: ['http://localhost:3000',
-    'http://greg.nomoredomainsicu.ru'],
+    'http://greg.nomoredomainsicu.ru',
+    'https://greg.nomoredomainsicu.ru'],
   credentials: true,
 }));
 

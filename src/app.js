@@ -1,40 +1,19 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import { errors } from 'celebrate';
-import cors from 'cors';
-import helmet from 'helmet';
-import dotenv from 'dotenv';
-import errorHandler from './middlewares/errorHandler';
-import createCustomErrors from './middlewares/createCustomErrors';
-import { requestLogger, errorLogger } from './middlewares/logger';
-import routes from './routes';
-import { bruteforceAll } from './utils/bruteForce';
+import mongoose from 'mongoose';
+import server from './server.js';
+import { MONGO_SERVER } from './utils/constants/MONGO_SERVER';
 
-dotenv.config();
+const port = process.env.PORT || 4000;
 
-const app = express();
+mongoose.connect(MONGO_SERVER)
+  // eslint-disable-next-line no-console
+  .then(() => console.log('Connected!'))
+  .catch((e) => {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    throw e;
+  });
 
-app.use(cors({
-  origin: ['http://localhost:3000',
-    'http://greg.nomoredomainsicu.ru',
-    'https://greg.nomoredomainsicu.ru'],
-  credentials: true,
-}));
-
-app.use(express.json({ limit: '50kb' })); // body-parser defaults to a body size limit of 100kb
-
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-app.use(requestLogger);
-
-app.use(helmet());
-
-app.use('/', bruteforceAll.prevent, routes);
-
-app.use(errorLogger);
-app.use(errors());
-app.use(createCustomErrors);
-app.use(errorHandler);
-
-export default app;
+server.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Example app listening on port ${port}`);
+});

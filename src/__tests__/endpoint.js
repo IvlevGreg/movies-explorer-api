@@ -1,6 +1,6 @@
 // endpoint.test.js
 import supertest from 'supertest';
 
-import app from '../app';
+import server from '../server.js';
 
-export const request = supertest(app);
+export const request = supertest(server);

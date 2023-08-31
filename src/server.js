@@ -1,19 +1,40 @@
-import mongoose from 'mongoose';
-import app from './app';
-import { MONGO_SERVER } from './utils/constants/MONGO_SERVER';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import { errors } from 'celebrate';
+import cors from 'cors';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import errorHandler from './middlewares/errorHandler';
+import createCustomErrors from './middlewares/createCustomErrors';
+import { requestLogger, errorLogger } from './middlewares/logger';
+import routes from './routes';
+import { bruteforceAll } from './utils/bruteForce';
 
-const port = process.env.PORT || 4000;
+dotenv.config();
 
-mongoose.connect(MONGO_SERVER)
-  // eslint-disable-next-line no-console
-  .then(() => console.log('Connected!'))
-  .catch((e) => {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    throw e;
-  });
+const server = express();
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${port}`);
-});
+server.use(cors({
+  origin: ['http://localhost:3000',
+    'http://greg.nomoredomainsicu.ru',
+    'https://greg.nomoredomainsicu.ru'],
+  credentials: true,
+}));
+
+server.use(express.json({ limit: '50kb' })); // body-parser defaults to a body size limit of 100kb
+
+server.use(express.urlencoded({ extended: true }));
+server.use(cookieParser());
+
+server.use(requestLogger);
+
+server.use(helmet());
+
+server.use('/', bruteforceAll.prevent, routes);
+
+server.use(errorLogger);
+server.use(errors());
+server.use(createCustomErrors);
+server.use(errorHandler);
+
+export default server;

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import app from './app';
 import { MONGO_SERVER } from './utils/constants/MONGO_SERVER';
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 mongoose.connect(MONGO_SERVER)
   // eslint-disable-next-line no-console

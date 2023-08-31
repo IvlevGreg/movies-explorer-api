@@ -1,4 +1,4 @@
-import { ValidationError, getValidationErrorText } from '../utils/Errors';
+import { ValidationError, getValidationMDErrorText } from '../utils/Errors';
 import { ERROR_VALIDATION_ERROR } from '../utils/constants/ERROR_CODE';
 
 export default (err, _, __, next) => {
@@ -9,7 +9,7 @@ export default (err, _, __, next) => {
   if (!statusCode) {
     switch (name) {
       case ERROR_VALIDATION_ERROR:
-        next(new ValidationError(getValidationErrorText(err.errors)));
+        next(new ValidationError(getValidationMDErrorText(err.errors)));
         break;
       default:
         next();

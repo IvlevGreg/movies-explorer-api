@@ -28,7 +28,7 @@ server.use(cookieParser());
 
 server.use(requestLogger);
 
-server.use(helmet());
+// server.use(helmet());
 
 server.use('/', bruteforceAll.prevent, routes);
 

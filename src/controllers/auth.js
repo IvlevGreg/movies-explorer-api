@@ -50,6 +50,8 @@ export const logout = (req, res) => {
     .cookie('jwt', '', {
       maxAge: -1,
       httpOnly: true,
+      sameSite: 'None',
+      secure: true,
     });
 
   res.send({ message: 'Вы успешно вышли из профиля' });

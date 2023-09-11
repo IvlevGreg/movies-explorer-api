@@ -73,6 +73,16 @@ export const createUser = (req, res, next) => {
           _id,
         } = user;
 
+        const token = jwt.sign({ _id }, JWT_TOKEN, { expiresIn: '7d' });
+
+        res
+          .cookie('jwt', token, {
+            maxAge: 3600000,
+            httpOnly: true,
+            sameSite: 'None',
+            secure: true,
+          });
+
         res.status(STATUS_201).send({
           data: {
             name: nameData,

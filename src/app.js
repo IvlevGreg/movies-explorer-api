@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import server from './server.js';
+import server from './server';
 import { MONGO_SERVER } from './utils/constants/MONGO_SERVER';
 
 const port = process.env.PORT || 4000;

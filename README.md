@@ -86,3 +86,7 @@ You will also see any lint errors in the console.
 ### `brew services start mongodb-community@4.4` 
 
 start mongoDB (works for Mac & brew)
+
+### `pm2 start --node-args --es-module-specifier-resolution=node src/server.js`
+
+start on server with pm2

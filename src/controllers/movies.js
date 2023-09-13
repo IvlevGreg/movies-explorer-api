@@ -2,9 +2,7 @@ import movies from '../models/movies';
 
 import { Default400Error, NotFoundError, ForbiddenError } from '../utils/Errors';
 import {
-  DEFAULT_400_DELETE_MOVIE_ERROR,
-  FORBIDDEN_DELETE_MOVIE_ERROR,
-  NOT_FOUND_MOVIE_ERROR_TEXT,
+  DEFAULT_400_DELETE_MOVIE_ERROR, FORBIDDEN_DELETE_MOVIE_ERROR, NOT_FOUND_MOVIE_ERROR_TEXT,
 } from '../utils/constants/ERROR_TEXTS';
 import { ERROR_CAST_ERROR } from '../utils/constants/ERROR_CODE';
 
@@ -16,14 +14,16 @@ export const getMovies = (req, res, next) => {
     .catch(next);
 };
 
-export const getMovieById = (req, res, next) => {
+export const deleteMovieById = (req, res, next) => {
   const { movieId } = req.params;
+  const { _id: userId } = req.user;
 
-  movies.findOne({ movieId })
+  movies.findOne({
+    movieId,
+    owner: userId,
+  })
     .orFail(new NotFoundError(NOT_FOUND_MOVIE_ERROR_TEXT))
     .then((moviesData) => {
-      const { _id: userId } = req.user;
-
       if (userId !== moviesData.owner.toHexString()) {
         next(new ForbiddenError(FORBIDDEN_DELETE_MOVIE_ERROR));
         return;
@@ -45,7 +45,11 @@ export const getMovieById = (req, res, next) => {
 export const postMovie = (req, res, next) => {
   const userId = req.user._id;
 
-  movies.create({ ...req.body, owner: userId })
-    .then((movie) => res.status(201).send(movie))
+  movies.create({
+    ...req.body,
+    owner: userId
+  })
+    .then((movie) => res.status(201)
+      .send(movie))
     .catch(next);
 };

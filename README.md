@@ -87,6 +87,6 @@ You will also see any lint errors in the console.
 
 start mongoDB (works for Mac & brew)
 
-### `pm2 start --node-args --es-module-specifier-resolution=node src/server.js`
+### `pm2 start --node-args --es-module-specifier-resolution=node src/app.js`
 
 start on server with pm2

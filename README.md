@@ -1,6 +1,8 @@
 # movies-explorer-api
 
-## деплой: https://api.greg.nomoreparties.co/
+## Фронтенд часть: https://github.com/IvlevGreg/movies-explorer-frontend
+
+## Деплой: **currently disabled**  ̶h̶t̶t̶p̶s̶:̶/̶/̶a̶p̶i̶.̶g̶r̶e̶g̶.̶n̶o̶m̶o̶r̶e̶p̶a̶r̶t̶i̶e̶s̶.̶c̶o̶/̶
 
 ## Стек:
 - ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
